@@ -1,0 +1,19 @@
+{% extends "admin_view_users" %}
+
+{% block content %}
+    <h3>User Management</h3>
+    <p>Here you can view and manage users.</p>
+    <!-- Add user management functionality here -->
+    {% for user in users %}
+        <div class="user-card">
+            <h4>{{ user.username }}</h4>
+            <p>First Name: {{ user.firstname }}</p>
+            <p>Last Name: {{ user.lastname }}</p>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Role: {{ user.role }}</p>
+            <button onclick="EditUser('{{ user.id }}')">Edit</button>
+            <button onclick="DeleteUser('{{ user.id }}')">Delete</button>
+        </div>
+    {% endfor %}
+{% endblock %}

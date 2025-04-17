@@ -1,0 +1,5 @@
+sqlalchemy
+quart
+asyncmy
+hypercorn
+python-dotenv
