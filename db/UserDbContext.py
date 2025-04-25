@@ -1,5 +1,5 @@
-from BaseModels.BaseDbContext import *
 from models.models import User
+from BaseModels.BaseDbContext import *
 
 Base = declarative_base()
 

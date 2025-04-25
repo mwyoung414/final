@@ -6,12 +6,13 @@ from secrets import token_bytes
 import hashlib, hmac, base64
 import os
 import logging
+from db.init import *
 
 app = Quart(__name__)
 logging.basicConfig(level=logging.INFO)
 
 load_dotenv()
-user_db_url = os.getenv("USER_DB_URL")
+list_of_db_urls = os.getenv("DB_URLS").split(",")
 
 @app.before_serving
 async def start_db():
@@ -21,7 +22,7 @@ async def start_db():
     requests. It initializes the database connection.
 
     """
-    await init_databases(user_db_url)
+    await init_databases(list_of_db_urls)
     
 
 
@@ -62,7 +63,9 @@ async def registration():
         The rendered HTML template.
     """
     
-    return await render_template('register.html')
+    states = CommonDataDb.get_all_states()
+    
+    return await render_template('register.html', states=states)
 
 
 @app.route("/admin/view_users", methods=['GET'])
