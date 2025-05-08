@@ -1,3 +1,4 @@
+from quart import jsonify
 from models.models import User
 from BaseModels.BaseDbContext import *
 
@@ -17,6 +18,16 @@ class UserDb:
             async with session.begin():
                 session.add(user)
             await session.commit()
+        
+        return jsonify({
+            "message": "User added successfully",
+            "user": {
+                "username": user.USERNAME,
+                "firstname": user.FIRSTNAME,
+                "lastname": user.LASTNAME,
+                "role": user.ROLE
+            }
+        }), 200
             
     async def getAllUsers(self):
         async with self.session() as session:

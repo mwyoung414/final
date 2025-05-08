@@ -1,39 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
   const addUserForm = document.getElementById("addUserForm");
 
-  addUserForm.addEventListener("submit", async (event) => {
-      event.preventDefault(); // Prevent the default form submission
+  if (addUserForm) {
 
-      // Collect form data
-      const formData = new FormData(addUserForm);
-      const data = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
+      addUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent the default form submission
 
-      try {
-          // Send data to the server
-          const response = await fetch("/admin/add_user", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-          });
+        // Collect form data
+        const formData = new FormData(addUserForm);
+        const data = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
 
-          if (response.ok) {
-              // Handle success (e.g., close the modal, show a success message)
-              alert("User added successfully!");
-              const modal = bootstrap.Modal.getInstance(document.getElementById("addUserModal"));
-              modal.hide();
-              addUserForm.reset(); // Reset the form
-          } else {
-              // Handle errors (e.g., show an error message)
-              const errorData = await response.json();
-              alert(`Error: ${errorData.message}`);
-          }
-      } catch (error) {
-          console.error("Error adding user:", error);
-          alert("An error occurred while adding the user.");
-      }
-  });
+        try {
+            // Send data to the server
+            const response = await fetch("/admin/add_user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                // Handle success (e.g., close the modal, show a success message)
+                alert("User added successfully!");
+                const modal = bootstrap.Modal.getInstance(document.getElementById("addUserModal"));
+                modal.hide();
+                addUserForm.reset(); // Reset the form
+            } else {
+                // Handle errors (e.g., show an error message)
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error("Error adding user:", error);
+            alert("An error occurred while adding the user.");
+        }
+    });
+  }
 });
 
 

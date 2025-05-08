@@ -1,7 +1,7 @@
 from db.UserDbContext import UserDb
 from db.CommonDataDbContext import *
 
-async def init_databases(*db_urls): 
+async def init_databases(db_urls): 
     """
     Initialize the database connection and create the necessary tables.
     

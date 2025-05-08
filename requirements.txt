@@ -3,3 +3,7 @@ quart
 asyncmy
 hypercorn
 python-dotenv
+pyjwt
+pyarrow
+mysqlclient
+pymysql
